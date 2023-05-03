@@ -7,61 +7,95 @@ window.addEventListener('DOMContentLoaded', () => {
         seats: number;
         tableNumber: number;
     }
-
     let waitingQueue: Queue[] = [];
-    const table = document.querySelectorAll('.col-4');
+    /* dataset.tableNumber */
+    const tables  = document.querySelectorAll('.btn');
+    /* dataset.seatNumber */
+    let spans = document.querySelectorAll('span');
 
-    table.forEach( table => {
-        table.addEventListener('click', (e: Event) => {
+    tables.forEach((table) => {
+        /* Left click to reserve */
+        table.addEventListener("click", (e: Event) => {
             let tableElement = e.target as HTMLElement;
-
+    
             try {
-                const regex = /\d+/g;
-                const match = tableElement.textContent!.match(regex);
+                if (!tableElement) throw new Error("Table not found.");
+    
+                /* Variables to grab data-table-number and data-seat-number */
+                const tableNumber = tableElement.dataset.tableNumber;
+                const spanElement = tableElement.querySelector("span.badge");
+                const seatNumber = (spanElement as HTMLElement)?.dataset.seatNumber;
+    
+                /* If table is available */
+                if (table.classList.contains("bg-primary")) {
+                    table.classList.replace("bg-primary", "bg-danger");
+                    table.textContent = "";
+                    let tableTextNode = document.createTextNode(`Table ${tableNumber}`);
+                    (spanElement as HTMLElement)?.classList.replace("bg-primary", "bg-danger");
+                    let spanTextNode = document.createTextNode(` ${seatNumber} seats reserved`);
+                    if (spanElement) {
+                        spanElement.textContent = '';
+                        spanElement.appendChild(spanTextNode);
+                    }
+                    table.appendChild(tableTextNode);
+                    table.appendChild(spanElement!);
+                }
 
-                if (!match) throw new Error ('Table number not found');
-
-                let tableNumber = parseInt(match[0]);
-                let seatNumber = parseInt(match[1]);
-                if (table.classList.contains('bg-primary')) {
-                    table.classList.replace('bg-primary', 'bg-danger');
-                    table.textContent = `Table ${tableNumber} (${seatNumber}) Reserved`;
-                } else if (table.classList.contains('bg-danger')) {
-                    const customer = prompt('Enter customer to queue: ');
+                /* If table already reserved */
+                else if (table.classList.contains("bg-danger")) {
+                    const customer = prompt("Enter customer to queue: ");
                     if (customer) {
-                        const seats = parseInt(prompt('Enter number of people: ')!);
-
-                        waitingQueue.push( { customer, seats, tableNumber });
-                        updateWaitingQueueDisplay();
+                        const seats = parseInt(prompt("Enter number of people: ")!);
+    
+                        waitingQueue.push({
+                            customer,
+                            seats,
+                            tableNumber: parseInt(tableNumber!),
+                        });
+                        updateWaitingQueue();
                     }
                 }
-            } catch (er) {
-                console.log(er.message);
+            } catch (error) {
+                console.log(error.message);
             }
         });
 
+        /* Right click to remove active reservation */
         table.addEventListener('contextmenu', (e: Event) => {
             e.preventDefault();
             let tableElement = e.target as HTMLElement;
-            const regex = /\d+/g;
-            const match = tableElement.textContent!.match(regex);
 
-            if (!match) throw new Error ('Table number not found');
+            if (!tableElement) throw new Error('Table not found.');
 
-            let tableNumber = parseInt(match[0]);
-            let seatNumber = parseInt(match[1]);
             try {
                 if (table.classList.contains('bg-danger')) {
-                    table.classList.replace('bg-danger', 'bg-primary');
-                    table.textContent = `Table ${tableNumber} (${seatNumber})`;
+
+                    /* Variables to grab data-table-number and data-seat-number */
+                    const tableNumber = tableElement.dataset.tableNumber;
+                    const spanElement = tableElement.querySelector("span.badge");
+                    const seatNumber = (spanElement as HTMLElement)?.dataset.seatNumber;
+
+                    table.classList.replace("bg-danger", "bg-primary");
+                    table.textContent = "";
+                    let tableTextNode = document.createTextNode(`Table ${tableNumber}`);
+                    (spanElement as HTMLElement)?.classList.replace("bg-danger", "bg-primary");
+                    let spanTextNode = document.createTextNode(` ${seatNumber} seats available`);
+                    if (spanElement) {
+                        spanElement.textContent = '';
+                        spanElement.appendChild(spanTextNode);
+                    }
+                    table.appendChild(tableTextNode);
+                    table.appendChild(spanElement!);
                 }
-            } catch (er) {
-                console.log(er.message);
+
+            } catch (error) {
+                console.log(error.message);
             }
         }, false);
     });
 
-    const updateWaitingQueueDisplay = (): void => {
+    /* Update waiting queue display */
+    const updateWaitingQueue = () => {
         const queueElement = document.querySelector('#waiting-queue') as HTMLElement;
         queueElement.innerHTML = '';
 
@@ -69,16 +103,54 @@ window.addEventListener('DOMContentLoaded', () => {
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item');
             listItem.style.fontSize = '1rem';
-            listItem.textContent = `${customer.customer} has reserved Table ${customer.tableNumber} for ${customer.seats} people`;
+            let listItemTextNode = document.createTextNode(`${customer.customer} has reserved Table ${customer.tableNumber} for ${customer.seats} people`);
+            listItem.appendChild(listItemTextNode);
             queueElement.appendChild(listItem);
 
-            if(listItem) {
+            if (listItem) {
                 listItem.addEventListener('contextmenu', (e: Event) => {
                     e.preventDefault();
+                    updateReservedTable(customer.seats);
                     waitingQueue.splice(index, 1);
-                    updateWaitingQueueDisplay();
+                    updateWaitingQueue();
                 });
             }
         });
     }
+
+    /* Update reserved table */
+    const updateReservedTable = (seats: number) => {
+
+        /* Array.prototype.slice.call() ... Måste uppdatera TypeScript */
+        for (const table of Array.prototype.slice.call(tables)) {
+            try {
+                if (!table) throw new Error("Table not found");
+
+                const tableNumber = (table as HTMLElement).dataset.tableNumber;
+                const spanElement = table.querySelector("span.badge");
+                const seatNumber = parseInt((spanElement as HTMLElement)?.dataset.seatNumber!);
+
+                if (
+                    table.classList.contains("bg-primary") &&
+                    seatNumber == seats
+                ) {
+                    table.classList.replace("bg-primary", "bg-danger");
+                    table.textContent = "";
+                    let tableTextNode = document.createTextNode(`Table ${tableNumber}`);
+                    (spanElement as HTMLElement)?.classList.replace("bg-primary", "bg-danger");
+                    let spanTextNode = document.createTextNode(` ${seatNumber} seats reserved`);
+                    if (spanElement) {
+                        spanElement.textContent = "";
+                        spanElement.appendChild(spanTextNode);
+                    }
+                    table.appendChild(tableTextNode);
+                    table.appendChild(spanElement!);
+
+                    break;
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+    };
 });

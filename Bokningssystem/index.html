@@ -6,29 +6,17 @@
     <title>Reserveringssystem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Monospace', sans-serif;
-            font-weight: bold;
-        }
         .div-container {
-            display: flex;
-            flex-wrap: nowrap;
             height: 100vh;
             width: 100vw;
         }
-        .table-shape {
-            border-radius: 0.25rem;
-            cursor: pointer;
-            user-select: none;
-        }
-        .col-4 {
-            border: 1px solid black;
-            padding: 2rem;
-            margin: 1rem;
+        .btn {
             width: 10rem;
             height: 5.5rem;
             max-height: 5.5rem;
-            border-style: none; 
+        }
+        .btn:hover {
+            opacity: 0.85;
         }
         @media (max-width: 1296px) {
             .div-container {
@@ -46,9 +34,9 @@
 </head>
 <body>
 
-<div class="div-container row">
+<div class="div-container row d-flex flex-wrap">
     <main class="col-8 container-fluid">
-        <div class="container mt-4">
+        <div class="container mt-5">
             <div class="container text-center">
                 <div class="row justify-content-center">
                     <div class="col-3 rounded text-light bg-dark">
@@ -56,82 +44,81 @@
                     </div>
                 </div>
                 <div class="row justify-content-between">
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 1 (4)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="1">
+                        Table 1 <span class="badge bg-primary" data-seat-number="4">4 seats available</span>
                     </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 16 (5)
-                    </div>
-                </div>
-                <div class="row justify-content-between">
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 2 (4)
-                    </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 15 (4)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="16">
+                        Table 16 <span class="badge bg-primary" data-seat-number="5">5 seats available</span>
                     </div>
                 </div>
                 <div class="row justify-content-between">
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 3 (2)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="2">
+                        Table 2 <span class="badge bg-primary" data-seat-number="4">4 seats available</span>
                     </div>
-                    <div class="col-4">
-
-                    </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 14 (2)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="15">
+                      Table 15 <span class="badge bg-primary" data-seat-number="4">4 seats available</span>
                     </div>
                 </div>
                 <div class="row justify-content-between">
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 4 (2)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="3">
+                        Table 3 <span class="badge bg-primary" data-seat-number="12">12 seats available</span>
                     </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 17 (10)
+                    <div class="btn col-4">
                     </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        table 13 (4)
-                    </div>
-                </div>
-                <div class="row justify-content-between">
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 5 (2)
-                    </div>
-                    <div class="col-4">
-
-                    </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 12 (4)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="14">
+                        Table 14 <span class="badge bg-primary" data-seat-number="2">2 seats available</span>
                     </div>
                 </div>
                 <div class="row justify-content-between">
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 6 (2)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="4">
+                        Table 4 <span class="badge bg-primary" data-seat-number="2">2 seats available</span>
                     </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 11 (2)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="17">
+                        Table 17 <span class="badge bg-primary" data-seat-number="10">10 seats available</span>
+                    </div>
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="13">
+                        table 13 <span class="badge bg-primary" data-seat-number="4">4 seats available</span>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="5">
+                        Table 5 <span class="badge bg-primary" data-seat-number="2">2 seats available</span>
+                    </div>
+                    <div class="btn col-4">
+                    </div>
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="12">
+                      Table 12 <span class="badge bg-primary" data-seat-number="4">4 seats available</span>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="6">
+                        Table 6 <span class="badge bg-primary" data-seat-number="2">2 seats available</span>
+                    </div>
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="11">
+                        Table 11 <span class="badge bg-primary" data-seat-number="2">2 seats available</span>
                     </div>
                 </div>
                 <div class="row justify-content-evenly">
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 7 (2)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="7">
+                        Table 7 <span class="badge bg-primary" data-seat-number="2">2 seats available</span>
                     </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 8 (2)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="8">
+                        Table 8 <span class="badge bg-primary" data-seat-number="2">2 seats available</span>
                     </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 9 (4)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="9">
+                         Table 9 <span class="badge bg-primary" data-seat-number="4">4 seats available</span>
                     </div>
-                    <div class="col-4 rounded text-light bg-primary">
-                        Table 10 (8)
+                    <div class="btn col-4 rounded border border-0 m-3 p-4 text-center text-light bg-primary" data-table-number="10">
+                         Table 10 <span class="badge bg-primary" data-seat-number="8">8 seats available</span>
                     </div>
-                </div>
+                </div>                                                      
             </div>
         </div>
     </main>
     <aside class="col-3 bg-light">
-        <div class="container mt-5">
+        <div class="container-fluid m-2">
             <h3 class="text-center">Waiting Queue</h3>
+            <hr>
             <ul id="waiting-queue" class="list-group">
                 
             </ul>
