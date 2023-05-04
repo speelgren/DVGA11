@@ -7,16 +7,13 @@ window.addEventListener('DOMContentLoaded', () => {
         seats: number;
         tableNumber: number;
     }
-    let waitingQueue: Queue[] = [];
-    /* dataset.tableNumber */
+    const waitingQueue: Queue[] = [];
     const tables  = document.querySelectorAll('.btn');
-    /* dataset.seatNumber */
-    let spans = document.querySelectorAll('span');
 
     tables.forEach((table) => {
         /* Left click to reserve */
         table.addEventListener("click", (e: Event) => {
-            let tableElement = e.target as HTMLElement;
+            const tableElement = e.target as HTMLElement;
     
             try {
                 if (!tableElement) throw new Error("Table not found.");
@@ -29,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 /* If table is available */
                 if (table.classList.contains("bg-primary")) {
                     table.classList.replace("bg-primary", "bg-danger");
-                    table.textContent = "";
+                    table.textContent = '';
                     let tableTextNode = document.createTextNode(`Table ${tableNumber}`);
                     (spanElement as HTMLElement)?.classList.replace("bg-primary", "bg-danger");
                     let spanTextNode = document.createTextNode(` ${seatNumber} seats reserved`);
@@ -63,7 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
         /* Right click to remove active reservation */
         table.addEventListener('contextmenu', (e: Event) => {
             e.preventDefault();
-            let tableElement = e.target as HTMLElement;
+            const tableElement = e.target as HTMLElement;
 
             if (!tableElement) throw new Error('Table not found.');
 
@@ -103,7 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const listItem = document.createElement('li');
             listItem.classList.add('list-group-item');
             listItem.style.fontSize = '1rem';
-            let listItemTextNode = document.createTextNode(`${customer.customer} has reserved Table ${customer.tableNumber} for ${customer.seats} people`);
+            const listItemTextNode = document.createTextNode(`${customer.customer} has reserved Table ${customer.tableNumber} for ${customer.seats} people`);
             listItem.appendChild(listItemTextNode);
             queueElement.appendChild(listItem);
 
@@ -121,7 +118,6 @@ window.addEventListener('DOMContentLoaded', () => {
     /* Update reserved table */
     const updateReservedTable = (seats: number) => {
 
-        /* Array.prototype.slice.call() ... Måste uppdatera TypeScript */
         for (const table of Array.prototype.slice.call(tables)) {
             try {
                 if (!table) throw new Error("Table not found");
@@ -132,7 +128,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 if (
                     table.classList.contains("bg-primary") &&
-                    seatNumber == seats
+                    seatNumber >= seats
                 ) {
                     table.classList.replace("bg-primary", "bg-danger");
                     table.textContent = "";
@@ -140,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     (spanElement as HTMLElement)?.classList.replace("bg-primary", "bg-danger");
                     let spanTextNode = document.createTextNode(` ${seatNumber} seats reserved`);
                     if (spanElement) {
-                        spanElement.textContent = "";
+                        spanElement.textContent = '';
                         spanElement.appendChild(spanTextNode);
                     }
                     table.appendChild(tableTextNode);

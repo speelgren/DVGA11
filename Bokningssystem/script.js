@@ -1,10 +1,7 @@
 'use strict';
 window.addEventListener('DOMContentLoaded', function () {
     var waitingQueue = [];
-    /* dataset.tableNumber */
     var tables = document.querySelectorAll('.btn');
-    /* dataset.seatNumber */
-    var spans = document.querySelectorAll('span');
     tables.forEach(function (table) {
         /* Left click to reserve */
         table.addEventListener("click", function (e) {
@@ -19,7 +16,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 /* If table is available */
                 if (table.classList.contains("bg-primary")) {
                     table.classList.replace("bg-primary", "bg-danger");
-                    table.textContent = "";
+                    table.textContent = '';
                     var tableTextNode = document.createTextNode("Table ".concat(tableNumber));
                     spanElement === null || spanElement === void 0 ? void 0 : spanElement.classList.replace("bg-primary", "bg-danger");
                     var spanTextNode = document.createTextNode(" ".concat(seatNumber, " seats reserved"));
@@ -101,7 +98,6 @@ window.addEventListener('DOMContentLoaded', function () {
     };
     /* Update reserved table */
     var updateReservedTable = function (seats) {
-        /* Array.prototype.slice.call() ... Måste uppdatera TypeScript */
         for (var _i = 0, _a = Array.prototype.slice.call(tables); _i < _a.length; _i++) {
             var table = _a[_i];
             try {
@@ -111,14 +107,14 @@ window.addEventListener('DOMContentLoaded', function () {
                 var spanElement = table.querySelector("span.badge");
                 var seatNumber = parseInt(spanElement === null || spanElement === void 0 ? void 0 : spanElement.dataset.seatNumber);
                 if (table.classList.contains("bg-primary") &&
-                    seatNumber == seats) {
+                    seatNumber >= seats) {
                     table.classList.replace("bg-primary", "bg-danger");
                     table.textContent = "";
                     var tableTextNode = document.createTextNode("Table ".concat(tableNumber));
                     spanElement === null || spanElement === void 0 ? void 0 : spanElement.classList.replace("bg-primary", "bg-danger");
                     var spanTextNode = document.createTextNode(" ".concat(seatNumber, " seats reserved"));
                     if (spanElement) {
-                        spanElement.textContent = "";
+                        spanElement.textContent = '';
                         spanElement.appendChild(spanTextNode);
                     }
                     table.appendChild(tableTextNode);
