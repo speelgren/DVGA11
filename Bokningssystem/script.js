@@ -29,7 +29,6 @@ window.addEventListener('DOMContentLoaded',  () => {
                 /* Om table innehåller bg-danger */
                 addToWaitingQueue(tableNumber);
             }
-
         });
         /* Lyssnare för högerklick på ett bord */
         table.addEventListener('contextmenu', (e) => {
@@ -103,7 +102,7 @@ window.addEventListener('DOMContentLoaded',  () => {
     }
 
     /* Om bordet innehåller klassen bg-danger: 
-     * Lägg till sällskap/person i kösystemet. */
+     * Lägg till sällskap i kösystemet. */
     const addToWaitingQueue = (tableNumber) => {
         const customer = prompt('Enter customer to queue: ');
         if (customer) {
@@ -124,7 +123,7 @@ window.addEventListener('DOMContentLoaded',  () => {
         }
     }
 
-    /* Uppdatera väntelistan varje gång en ny sällskap/person läggs till i kösystemet */
+    /* Uppdatera väntelistan varje gång en ny sällskap läggs till i kösystemet */
     const updateWaitingQueue = () => {
         const queueElement = document.querySelector('#waiting-queue');
         queueElement.innerHTML = '';
@@ -135,7 +134,7 @@ window.addEventListener('DOMContentLoaded',  () => {
         });
     }
 
-    /* Skapa listan för varje sällskap/person */
+    /* Skapa listan för varje sällskap */
     const createListItem = (customer, index) => {
         const listItem = document.createElement('li');
         listItem.classList.add('list-group-item');
@@ -152,7 +151,7 @@ window.addEventListener('DOMContentLoaded',  () => {
         return listItem;
     }
 
-    /* Om användaren högerklickar på ett sällskap/person i väntelistan */
+    /* Om användaren högerklickar på ett sällskap i väntelistan */
     const handleListItemRightClick = (e, index) => {
         e.preventDefault();
 
@@ -169,9 +168,9 @@ window.addEventListener('DOMContentLoaded',  () => {
         }
     }
 
-    /* Leta efter ett bord som passar sällskapen/personen är ledigt */
+    /* Leta efter ett ledigt bord som passar sällskapet */
     const updateReservedTable = (seats) => {
-        /* Returvärde för om det finns ett ledigt bord, eller ej */
+        /* Returvärde för om det finns ett ledigt bord */
         let tableFound = false;
 
         for (const table of tables) {
