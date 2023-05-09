@@ -1,6 +1,8 @@
+/* Robin Johansson Speelgren */
 'use strict';
 
 window.addEventListener('DOMContentLoaded',  () => {
+    /* Väntelista */
     const waitingQueue = [];
 
     /* querySelect alla bord */
@@ -114,6 +116,7 @@ window.addEventListener('DOMContentLoaded',  () => {
                 alert(`Please enter a valid number of people (1 to ${maxTableSize}).`);
                 seats = parseInt(prompt(`Enter number of people (max ${maxTableSize}): `));
             }
+            /* Lägg till gäst i väntelistan */
             waitingQueue.push({
                 customer,
                 seats,
@@ -145,7 +148,7 @@ window.addEventListener('DOMContentLoaded',  () => {
         );
 
         listItem.appendChild(listItemTextNode);
-        listItem.addEventListener('contextmenu', (e) => handleListItemRightClick(e, index));
+        listItem.addEventListener('contextmenu', (e) => handleListItemRightClick(e, index)); // Högerklick i väntelistan
 
         /* Returnera listItem och append till queueElement */
         return listItem;
