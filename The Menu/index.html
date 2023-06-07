@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        .container {
+            max-width: 700px;
+        }
+        .receipt {
+            min-height: 10px;
+        }
+        .receipt-container {
+            padding: 10px 10px;
+            background-color: #81b29a;
+        }
+        .list-group-item {
+            background-color: #fff !important;
+        }
+        .btn-danger {
+            background-color: #e07a5f !important;
+            border: 0;
+        }
+        .btn-primary {
+            background-color: #81b29a !important;
+            border: 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family:'Times New Roman', Times, serif;
+            color: #003049;
+        }
+        h1 {
+            font-size: 4rem;
+        }
+        h4, h5 {
+            font-weight: bold;
+        }
+        p {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <main class="container">
+        <h1 class="text-center m-5">The Menu</h1>
+
+        <div class="receipt-container container mt-4 bg-light rounded d-none">
+            <div class="d-flex text-align-center justify-content-between">
+                <div class="total mt-2 d-none">
+                    <!-- totalen visas här -->
+                </div>
+                <div class="btn btn-danger btn-sm mb-2 d-none clear-receipt">
+                    Clear
+                </div>
+            </div>
+            <div class="receipt">
+                <!-- Vad kunden beställt visas här -->
+            </div>
+        </div>
+            <!-- Lägg till kommentar vid beställning -->
+        <input type="text" class="form-control mt-4" placeholder="Add note.. ">
+        <div class="container mt-4 menu">
+            <!-- Meny visas här -->
+        </div>
+    </main>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- JS -->
+    <script src="labb3.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
