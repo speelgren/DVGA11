@@ -42,7 +42,6 @@ window.addEventListener('DOMContentLoaded', () => {
         placeholder.style.height = `${noteContainer.offsetHeight}px`;
     });
     
-
     clearReceiptBtn.addEventListener('click', (e) => {
         receiptDiv.innerHTML = '';
         receiptContainer.classList.add('d-none');
