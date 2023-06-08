@@ -14,6 +14,35 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let total = 0;
 
+    let noteContainer = document.querySelector('.note-container');
+    let noteOffsetTop = noteContainer.offsetTop;
+    let initialWidth = noteContainer.offsetWidth;
+    let placeholder = document.createElement('div');
+    placeholder.style.height = `${noteContainer.offsetHeight}px`;
+
+    window.addEventListener('scroll', () => {
+        if(window.pageYOffset >= noteOffsetTop) {
+            noteContainer.style.width = `${initialWidth}px`;
+            noteContainer.classList.add('sticky');
+            noteContainer.parentNode.insertBefore(placeholder, noteContainer);
+        } else {
+            noteContainer.style.width = '';
+            noteContainer.classList.remove('sticky');
+            if (noteContainer.parentNode.contains(placeholder)) {
+                noteContainer.parentNode.removeChild(placeholder);
+            }
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        initialWidth = noteContainer.offsetWidth;
+        if(noteContainer.classList.contains('sticky')) {
+            noteContainer.style.width = `${initialWidth}px`;
+        }
+        placeholder.style.height = `${noteContainer.offsetHeight}px`;
+    });
+    
+
     clearReceiptBtn.addEventListener('click', (e) => {
         receiptDiv.innerHTML = '';
         receiptContainer.classList.add('d-none');
@@ -51,12 +80,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     for (const [category, items] of Object.entries(menu)) {
 
+        /* Category */
         let categoryElement = document.createElement('h4');
         let categoryNode = document.createTextNode(category.toUpperCase());
         categoryElement.appendChild(categoryNode);
         menuContainer.appendChild(categoryElement);
 
-        /* Div */
+        /* List-group */
         let listGroup = document.createElement('div');
         listGroup.classList.add('list-group');
         let listGroupItem = document.createElement('div');
