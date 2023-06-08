@@ -96,23 +96,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
             /* Title */
             let titleElement = document.createElement('div');
-            titleElement.classList.add('d-flex', 'justify-content-between', 'text-align-center', 'border-top', 'pt-2');
+            titleElement.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'border-top', 'pt-2');
 
             /* Name */
             let itemNameElement = document.createElement('h5');
             let itemNameNode = document.createTextNode(item.name);
             itemNameElement.appendChild(itemNameNode);
 
-            /* Price */
-            let itemPriceElement = document.createElement('p');
-            let itemPriceNode = document.createTextNode(` ${item.price}kr`);
-            itemNameElement.appendChild(itemPriceNode);
-
             /* BTN */
             let btnElement = document.createElement('div');
             btnElement.classList.add('btn', 'btn-primary');
             let btnNode = document.createTextNode('+');
             btnElement.appendChild(btnNode);
+
+
+            /* Price */
+            let itemPriceElement = document.createElement('p');
+            let itemPriceNode = document.createTextNode(` ${item.price}kr`);
+            itemNameElement.appendChild(itemPriceNode);
+
 
             titleElement.appendChild(itemNameElement);
             titleElement.appendChild(btnElement);
