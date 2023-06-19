@@ -1,6 +1,6 @@
 'use strict';
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', (e) => {
 
     let menuContainer = document.querySelector('.menu');
     let receiptContainer = document.querySelector('.receipt-container');
@@ -17,10 +17,12 @@ window.addEventListener('DOMContentLoaded', () => {
     let noteContainer = document.querySelector('.note-container');
     let noteOffsetTop = noteContainer.offsetTop;
     let initialWidth = noteContainer.offsetWidth;
+    /* Placeholder för att det inte ska "hoppa" när användaren skrollar förbi inputfältet för notering. */
     let placeholder = document.createElement('div');
     placeholder.style.height = `${noteContainer.offsetHeight}px`;
 
-    window.addEventListener('scroll', () => {
+    /* För att inputfältet för notering ska följa med när användaren skrollar. */
+    window.addEventListener('scroll', (e) => {
         if(window.pageYOffset >= noteOffsetTop) {
             noteContainer.style.width = `${initialWidth}px`;
             noteContainer.classList.add('sticky');
@@ -34,7 +36,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.addEventListener('resize', () => {
+    /* För input för notering. Nödlösning för att fixa så att inputfältet för notering ska vara responsivt när användaren ändrar storlek på webbläsaren */
+    window.addEventListener('resize', (e) => {
         initialWidth = noteContainer.offsetWidth;
         if(noteContainer.classList.contains('sticky')) {
             noteContainer.style.width = `${initialWidth}px`;
@@ -42,6 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
         placeholder.style.height = `${noteContainer.offsetHeight}px`;
     });
     
+    /* Rensa receipt */
     clearReceiptBtn.addEventListener('click', (e) => {
         receiptDiv.innerHTML = '';
         receiptContainer.classList.add('d-none');
@@ -77,6 +81,8 @@ window.addEventListener('DOMContentLoaded', () => {
         note.value = '';
     };
 
+    /* För att hämta ut informationen i json-filen. 
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries */
     for (const [category, items] of Object.entries(menu)) {
 
         /* Category */
@@ -124,7 +130,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 let itemContentsElement = document.createElement('p');
 
                 /* För att välja ut varje contents
-                 * sedan gör de som börjar med "a:" bold */
+                 * sedan gör de som börjar med "a:" bold
+                 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith
+                 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring */
                 item.contents.forEach(content => {
                     if(content.startsWith('a:')) {
                         let strong = document.createElement('strong');
@@ -149,6 +157,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             listGroup.appendChild(listGroupItem);
 
+            /* Klickevent för knapparna. Skickar info till receipt och updatePrice i receiptContainer */
             btnElement.addEventListener('click', (e) => {
                 receipt(item.name, item.price, note);
                 updatePrice(item.price);
